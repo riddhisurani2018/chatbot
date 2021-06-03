@@ -1,0 +1,318 @@
+{% load static %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<html>
+<head>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+<meta charset = "utf-8" />
+<title>Chatbot</title>
+<!-- add icon link -->
+<link rel = "icon" href = "{% static 'images/logo1.jpeg' %}" type = "image/x-icon">
+</head>
+
+<div class="header">
+  <img src="{% static 'images/logo1.jpeg' %}" alt="logo" />
+</div>
+
+<br>
+<br>
+<br>
+<hr />
+
+<body>
+<div class="container">
+    <div class="mesgs">
+        <div class="msg_history">
+          	<div id="msg">
+				<p style="color:blue" style="font-size:16px"><b>Type english for English or عربى for Arabic:</b></p>
+			</div><br><br>
+		</div>
+	</div>
+</div>
+
+          <form id="myForm" action="" method="GET">
+		  {%csrf_token%}
+		  <div class="message-form">
+			<input id="title" type="text" name="title" placeholder="Type your message here...."/><br/>
+			<button type="submit" input id="send_button" onclick="UserQuery"><i class="fa fa-paper-plane" aria-hidden="true"></i> Send</button>
+			</div>
+		 </form>
+
+</body>
+</html>
+
+
+<style type="text/css">
+
+.header img {
+    float: left;
+    width: 169px;
+    height: 70px;
+    background: #555;
+    margin-left: 20;
+    margin-top: 10;
+}
+
+.header h1 {
+  position: relative;
+  top: 18px;
+  left: 10px;
+}
+
+
+.container{max-width:1280px; margin:auto;}
+img{ max-width:100%;}
+.inbox_people {
+  background: #f8f8f8 none repeat scroll 0 0;
+  float: left;
+  overflow: hidden;
+  width: 40%; border-right:1px solid #c4c4c4;
+}
+
+.inbox_msg {
+  border: 1px solid #c4c4c4;
+  clear: both;
+  overflow: hidden;
+}
+
+.top_spac{ margin: 20px 0 0;}
+
+.recent_heading {float: left; width:40%;}
+.srch_bar {
+  display: inline-block;
+  text-align: right;
+  width: 60%;
+}
+
+.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
+
+.recent_heading h4 {
+  color: #05728f;
+  font-size: 21px;
+  margin: auto;
+}
+
+.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
+.srch_bar .input-group-addon button {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  padding: 0;
+  color: #707070;
+  font-size: 18px;
+}
+
+.srch_bar .input-group-addon { margin: 0 0 0 -27px;}
+
+
+.incoming_msg_img {
+  display: inline-block;
+  width: 6%;
+}
+
+.received_msg {
+  display: inline-block;
+  padding: 0 0 0 10px;
+  vertical-align: top;
+  width: 92%;
+ }
+
+ .received_withd_msg p {
+  background: #4a6b52;
+  border-radius: 3px;
+  color: #c4c4c4;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px 10px 5px 12px;
+  width: 100%;
+}
+
+.time_date {
+  color: #747474;
+  display: block;
+  font-size: 12px;
+  margin: 8px 0 0;
+}
+
+.received_withd_msg { width: 57%;}
+.mesgs {
+  float: left;
+  padding: 30px 15px 0 25px;
+  width: 100%;
+}
+
+
+ .sent_msg p {
+  background: #a97e29;
+  border-radius: 3px;
+  font-size: 14px;
+  margin: 0; color:#fff;
+  padding: 5px 10px 5px 12px;
+  width:100%;
+}
+
+.sent_msg_img {
+    display: inline-block;
+    /* left: -200; */
+    float: right;
+    width: 6%;
+    margin-left: 20px
+}
+
+.outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
+.sent_msg {
+  float: right;
+  width: 46%;
+}
+
+.input_msg_write input {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  color: #4c4c4c;
+  font-size: 15px;
+  min-height: 48px;
+  width: 100%;
+}
+
+.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+
+.messaging { padding: 0 0 50px 0;}
+.msg_history {
+  height: 516px;
+  overflow-y: visible;
+}
+
+.message-form {
+    height: 50px;
+    border-top: 1px solid #e0e2e4;
+    padding: 0px 20px 15px 20px;
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+    background-color: #fff;
+    z-index: 999 !important;
+}
+.message-form input {
+		  width: 50%;
+		  border: none;
+		  font-size: 16px;
+		  margin-top: 5px;
+		}
+.message-form img {
+		  float: right;
+		  margin-top: 10px;
+		}
+
+.msg_send_btn {
+		  position: absolute;
+		  z-index: 1;
+		  right: 10px;
+		  bottom: 10px;
+		  color: #fff;
+		  border: none;
+		  background: #007100;
+		  font-size: 12px;
+		  text-transform: uppercase;
+		  padding: 8px 12px;
+		  border-radius: 20px;
+		  outline: none !important;
+		  transition: background 0.2s ease;
+		  cursor: pointer;
+		}
+
+.msg_send_btn{
+			margin-right: 8px;
+		}
+.msg_send_btn:hover {
+		  background: #fff;
+		  color: #333;
+		}
+#send_button{position: absolute;
+		  z-index: 1;
+		  right: 4%;
+		  bottom: 0px;
+		  color: #fff;
+		  border: none;
+		  background: #007100;
+		  font-size: 12px;
+		  text-transform: uppercase;
+		  padding: 8px 12px;
+		  border-radius: 20px;
+		  outline: none !important;
+		  transition: background 0.2s ease;
+		  cursor: pointer;
+		  margin-bottom:7}
+
+input#title{
+outline: none;
+border: none;
+}
+</style>
+
+<script >
+	$(document).ready(function() 
+	{
+		$(document).on('click','#send_button',function(e)
+		{
+			//alert('hi')
+			e.preventDefault();
+			var formDataSerialized = new FormData($('#myForm')[0]);
+			$.ajax({
+				url:"",
+				type:'POST',
+				data:formDataSerialized,
+				cache:false,
+				contentType: false,
+				processData: false,
+				success:function(data)
+				{
+					console.log(data)
+					var chat = ""
+
+					chat += '<div class="incoming_msg">';
+					chat += '<div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>';
+					chat += '<div class="received_msg">';
+					chat += '<div class="overlay-text">';
+					chat += '<div class="received_withd_msg">';
+					chat += '<p id="p_input">'+data.msg+'</p>';
+					chat += '<span class="time_date"> {{dat}}</span></div>';
+					chat += '</div>';
+					chat += '</div>';
+					chat += '<div class="outgoing_msg">';
+					chat += '<div class="sent_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>';
+					chat += '<div class="sent_msg">';
+					chat += '<div class="overlay-text">';
+					chat += '<p id="p_input2">'+data.ans+'</p>';
+					chat += '<span class="time_date"> {{dat}} </span> </div>';
+					chat += '</div>';
+					$('#msg').append(chat)
+					// $('#p_input').html(data.msg)
+					// $('#p_input2').html(data.ans)
+					$('#title').val('')   
+				}
+			});
+		})
+	});
+
+<!--$( "p" ).click(function() {-->
+<!--  $( this ).slideUp();-->
+
+<!--});-->
+
+// $( "p" ).click(function() {
+// 	( $( "#send_button" ).is( ":hidden" ) )
+//   });
+
+function UserQuery()
+{
+var chatbotMessage = document.getElementByID('title').value
+if (chatbotMessage == b)
+{
+document.getElementByID('title').name = 'userQuery'
+}
+}
+
+</script>
